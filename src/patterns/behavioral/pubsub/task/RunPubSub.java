@@ -1,8 +1,8 @@
 package patterns.behavioral.pubsub.task;
 
-import patterns.behavioral.pubsub.task.pubsub.Subscriber;
-import patterns.behavioral.pubsub.task.pubsub.Video;
-import patterns.behavioral.pubsub.task.pubsub.VideoChannel;
+import patterns.behavioral.pubsub.task.pubsub.impl.event.Video;
+import patterns.behavioral.pubsub.task.pubsub.impl.sub.Subscriber;
+import patterns.behavioral.pubsub.task.pubsub.impl.pub.VideoChannel;
 
 import java.time.LocalDateTime;
 
@@ -30,5 +30,17 @@ public class RunPubSub {
 
         Subscriber s1 = new Subscriber("Bob");
         Subscriber s2 = new Subscriber("Jack");
+
+        s1.registerSubscriber(channel.getAdmin());
+        s2.registerSubscriber(channel.getAdmin());
+
+        channel.registerSubscriber(s1);
+        channel.registerSubscriber(s2);
+        channel.addVideo(bandsOfNewYork);
+        channel.addVideo(santaBarbara);
+        channel.unregisterSubscriber(s2);
+
+
+
     }
 }
